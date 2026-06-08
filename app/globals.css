@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* color */
+  --bg-dark: #0c0c0c;
+  --surface-dark: #1e2124;
+  --surface-dark-2: #202426;
+  --bg-light: #efefef;
+  --bg-light-2: #f6f6f6;
+  --text-light: #ffffff;
+  --text-soft: #efefef;
+  --text-dark: #1e2124;
+  --muted: #aaaaaa;
+  --muted-dark: #595959;
+  --accent: #4e8af7;
+  --hero-video-bg: #0d0e10;
+
+  /* layout */
+  --max-width: 1440px;
+  --pad-x: 20px;
+  --nav-h: 70px;
+
+  color-scheme: dark;
+}
+
+html {
+  font-size: 1.125em; /* 18px base */
+  background: var(--bg-dark);
+}
+body {
+  font-family: var(--font-body), "Neue Montreal", "Hanken Grotesk", system-ui, sans-serif;
+  line-height: 1.389;
+  -webkit-font-smoothing: antialiased;
+  color: var(--text-soft);
+  background: transparent;
+}
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-family: var(--font-display), "Neue Montreal", "Archivo", sans-serif;
+}
+
+/* Earmark label */
+.earmark {
+  font-family: var(--font-mono), "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Ghost button — 1px currentColor, square, inverts on hover, glyph nudges */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  height: 40px;
+  padding: 0 1.1em;
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  transition: background-color .25s ease-in-out, color .25s ease-in-out, border-color .25s ease-in-out;
+}
+.btn .glyph {
+  display: inline-block;
+  transition: transform .25s ease-in-out, padding .25s ease-in-out;
+}
+.btn:hover .glyph { transform: translateX(4px); }
+.btn:hover .glyph.up { transform: translate(-4px, -2px); }
+.btn.invert:hover {
+  background: currentColor;
+  border-color: transparent;
+}
+.btn.invert:hover > * { color: var(--bg-current, #0c0c0c); }
+.btn-on-dark:hover { background: #fff; color: #0c0c0c; }
+.btn-on-light:hover { background: #1e2124; color: #fff; }
+
+/* Hero word reveal */
+.hero-word {
+  display: inline-block;
+  padding: 0 10px;
+  mix-blend-mode: difference;
+  color: #efefef;
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(100%);
+  animation: heroPop .6s cubic-bezier(.22,.61,.36,1) forwards;
+}
+@keyframes heroPop {
+  to { clip-path: inset(0 0 0 0); transform: translateY(0); }
+}
+.hero-arrow, .hero-scroll {
+  opacity: 0;
+  animation: flickerIn 1.4s forwards;
+  animation-delay: 1s;
+}
+.hero-arrow {
+  animation: flickerIn 1.4s forwards 1s, heroBounce 1.6s ease-in-out infinite 2.4s;
+}
+@keyframes flickerIn {
+  0% { opacity: 0; } 30% { opacity: .4; } 50% { opacity: .1; } 100% { opacity: 1; }
+}
+@keyframes heroBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* Light slab — sits over fixed video */
+.slab { position: relative; z-index: 5; }
+.slab-dark { background: var(--bg-dark); color: var(--text-soft); }
+.slab-light { background: var(--bg-light); color: var(--text-dark); }
+.slab-surface { background: var(--surface-dark); color: var(--text-soft); }
+
+.divider { border-top: 1px solid currentColor; opacity: .2; }
+
+.container-x {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--pad-x);
+}
+@media (min-width: 768px) {
+  .container-x { padding-inline: 30px; }
+}
+
+/* Responsive list row: stack <md, 3-col grid >=md */
+.row-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem 2rem;
+}
+@media (min-width: 768px) {
+  .row-3 {
+    grid-template-columns: var(--col1, 80px) 1fr auto;
+    gap: 2rem;
+  }
+}
+.row-3 > .row-3-arrow { display: none; }
+@media (min-width: 768px) {
+  .row-3 > .row-3-arrow { display: inline; }
+}
+
+/* Mobile-safe section top padding (header is fixed) */
+.page-top { padding-top: 140px; }
+@media (min-width: 768px) { .page-top { padding-top: 200px; } }
+
+/* Marquee (kept for feature strip if used) */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 60s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

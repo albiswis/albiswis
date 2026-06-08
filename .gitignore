@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js build output
+.next/
+out/
+build/
+dist/
+
+# Production / runtime
+.env
+.env*.local
+.env.production
+.env.development
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Editor / OS
+.DS_Store
+*.pem
+.idea/
+.vscode/
+.cursor/
+
+# TypeScript / Next types
+*.tsbuildinfo
+next-env.d.ts
+
+# Local raw source assets — keep small public/ versions, ignore originals
+assets/
+*.mov
+*.psd
+*.ai
+*.sketch
+
+# Vercel
+.vercel
